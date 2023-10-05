@@ -1,9 +1,11 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const { connectToDatabase } = require('./app/config/db_config');
 
-// Routes
-
+//Routes
+const infoBranchRouter = require('./app/v1/routes/info_suc');
+const authRouter = require('./app/v1/routes/auth_route');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -15,6 +17,11 @@ dotenv.config();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+
+// Main routes
+app.use('/api/v1/data', infoBranchRouter);
+app.use('/api/v1/verification', authRouter);
+
 
 // Ruta para verificar que el Endpoint funcione
 app.get('/api', (req, res) => {
@@ -28,6 +35,6 @@ app.use((req, res) => {
 
 // Iniciar el servidor y hacer que escuche en el puerto especificado
 app.listen(port, () => {
-    //connectToDatabase();
-    console.log(`Servidor en funcionamiento en el ${port}`);
+    connectToDatabase();
+    console.log(`Servidor en funcionamiento en el puerto : ${port}`);
 });
