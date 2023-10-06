@@ -86,6 +86,15 @@ const get_Corte_Descuentos = (idCia, idCaja, fecha) =>`
             AND CONCAT(SUBSTRING(VMa_Fec, 9, 2), '/', SUBSTRING(VMa_Fec, 6, 2), '/', SUBSTRING(VMa_Fec, 1, 4)) = '${fecha}'`;
 
 
+const insert_Folios = (folCia, folSuc) => `
+            INSERT INTO ls_fol (Fol_Cia, Fol_Suc, Fol_Id, Fol_Per, Fol_Val)
+            VALUES (${folCia},${folSuc},'vMOS','UNICO',1),
+                   (${folCia},${folSuc},'TDV','UNICO',1)
+`;
+
+//const insertFolios = "INSERT INTO ls_fol (Fol_Cia, Fol_Suc, Fol_Id, Fol_Per, Fol_Val) VALUES (? , ? ,'vMOS','UNICO',1)";
+
+
 module.exports = {
     get_Sucursales, get_Cupones,
     get_Categorias_Articulos,
@@ -93,6 +102,7 @@ module.exports = {
     get_Usuario,
     get_ExoTipoDocumento,
     get_Tax, get_HistorialTickets,
-    get_Corte_FoPa, get_Corte_TotalVendido, get_Corte_FondoCaja, get_Corte_Descuentos
+    get_Corte_FoPa, get_Corte_TotalVendido, get_Corte_FondoCaja, get_Corte_Descuentos,
+    insert_Folios
 }
 
